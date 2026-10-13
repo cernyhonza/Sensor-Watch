@@ -76,6 +76,7 @@ typedef enum {
     ASTRONOMY_MODE_DISPLAYING_AZI,
     ASTRONOMY_MODE_DISPLAYING_RA,
     ASTRONOMY_MODE_DISPLAYING_DEC,
+    ASTRONOMY_MODE_DISPLAYING_HA,
     ASTRONOMY_MODE_DISPLAYING_DIST,
     ASTRONOMY_MODE_NUM_MODES
 } astronomy_mode_t;
@@ -88,6 +89,7 @@ typedef struct {
     double longitude_radians;   // but in radians
     astro_angle_hms_t right_ascension;
     astro_angle_dms_t declination;
+    astro_angle_hms_t hour_angle;
     double altitude;    // in decimal degrees
     double azimuth;     // in decimal degrees
     double distance;    // in AU

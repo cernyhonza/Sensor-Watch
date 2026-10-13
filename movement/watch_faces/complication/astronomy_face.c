@@ -100,6 +100,11 @@ static void _astronomy_face_recalculate(movement_settings_t *settings, astronomy
     state->declination = astro_radians_to_dms(radec.declination);
     state->distance = radec.distance;
 
+    double gmst_rad = astro_get_GMST(jd) * M_PI / 180.0 * 15.0;
+    double ha_rad = fmod(gmst_rad + state->longitude_radians - radec.right_ascension, 2.0 * M_PI);
+    if (ha_rad < 0) ha_rad += 2.0 * M_PI;
+    state->hour_angle = astro_radians_to_hms(ha_rad);
+
     printf("Calculated coordinates for %s on %f: \n\tRA  = %f / %2dh %2dm %2ds\n\tDec = %f / %3d° %3d' %3d\"\n\tAzi = %f\n\tAlt = %f\n\tDst = %f AU\n",
             astronomy_celestial_body_names[state->active_body_index],
             jd,
@@ -170,6 +175,11 @@ static void _astronomy_face_update(movement_event_t event, movement_settings_t *
         case ASTRONOMY_MODE_DISPLAYING_DEC:
             watch_clear_colon();
             sprintf(buf, "de %3d%2d%2d", state->declination.degrees, state->declination.minutes, state->declination.seconds);
+            watch_display_string(buf, 0);
+            break;
+        case ASTRONOMY_MODE_DISPLAYING_HA:
+            watch_set_colon();
+            sprintf(buf, "HA H%02d%02d%02d", state->hour_angle.hours, state->hour_angle.minutes, state->hour_angle.seconds);
             watch_display_string(buf, 0);
             break;
         case ASTRONOMY_MODE_DISPLAYING_DIST:

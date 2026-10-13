@@ -80,7 +80,7 @@ void watch_start_character_blink(char character, uint32_t duration) {
 }
 
 void watch_stop_blink(void) {
-    emscripten_clear_timeout(blink_interval_id);
+    emscripten_clear_interval(blink_interval_id);
     blink_interval_id = -1;
     blink_state = false;
 }
@@ -109,7 +109,7 @@ bool watch_tick_animation_is_running(void) {
 }
 
 void watch_stop_tick_animation(void) {
-    emscripten_clear_timeout(tick_interval_id);
+    emscripten_clear_interval(tick_interval_id);
     tick_interval_id = -1;
     tick_state = false;
 

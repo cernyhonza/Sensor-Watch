@@ -36,7 +36,9 @@
  */
 
 typedef struct {
-    uint8_t unused;
+    int32_t utc_offset_seconds;
+    uint32_t base_unix_time;
+    double base_lst;
 } sidereal_time_state_t;
 
 void sidereal_time_face_setup(movement_settings_t *settings, uint8_t watch_face_index, void ** context_ptr);
